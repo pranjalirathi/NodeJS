@@ -1,5 +1,4 @@
 // const http = require('http');
-const express = require('express');
 //IMPORTING A FILE ROUTE.JS TO HERE 
 // const routes = require('./routes')
 // const fs = require('fs');    //allow to work with the file syystem
@@ -77,22 +76,47 @@ const express = require('express');
     
 // });
 
-const app = express();  //craering as an object
-
-app.use((req, res, next) => {
-    console.log("first0");
-    next();
-})
-
-app.use((req, res, next) => {
-    console.log("secondd");
-    res.send("helo from express")
-})
-
-
 // const server = http.createServer(app);
 // server.listen(4000);
 
+
+
+
+
+// <------LEARNING BASICS OF EXPRESS JS----->
+// const express = require('express');
+// const app = express();  //craering as an object
+
+// app.use((req, res, next) => {
+//     console.log("first0");
+//     next();   //the next argument helps to transfer the request from the current to the next middlewae
+// })
+
+// app.use((req, res, next) => {
+//     console.log("secondd");
+//     res.send("helo from express")
+// })
+
+// //instaed of server now, we can make the app.listen at port
+// app.listen(4000);
+
+
+
+
+
+
+
+// <------LEARNING HOW TO HANDLE MULTIPLE ROUTES----->
+const express = require('express');
+const app = express();
+
+//handling the differnet urls
+app.use('/add-product', (req, res, next) => {
+    res.send("hello  from product page");
+})
+app.use('/', (req, res, next) => {
+    res.send("hello from main page")
+})
 
 app.listen(4000);
 
