@@ -12,6 +12,7 @@ if ( url === '/'){
     return res.end();
 }
 
+
 // <----------REDIRECTING REQUESTS--------->
 if ( url === '/message' && method === 'POST'){
     const body = [];
@@ -23,6 +24,7 @@ if ( url === '/message' && method === 'POST'){
     });
     req.on('end', ()=> {
 
+        
         //will add all the chunks inside the body to it and converting it to string
         const parsedBody = Buffer.concat(body).toString();
         const message = parsedBody.split('=')[1];

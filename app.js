@@ -1,7 +1,7 @@
-const http = require('http');
-
+// const http = require('http');
+const express = require('express');
 //IMPORTING A FILE ROUTE.JS TO HERE 
-const routes = require('./routes')
+// const routes = require('./routes')
 // const fs = require('fs');    //allow to work with the file syystem
 
 
@@ -77,7 +77,22 @@ const routes = require('./routes')
     
 // });
 
-const server = http.createServer(routes);
+const app = express();  //craering as an object
 
-server.listen(3000);
+app.use((req, res, next) => {
+    console.log("first0");
+    next();
+})
+
+app.use((req, res, next) => {
+    console.log("secondd");
+    res.send("helo from express")
+})
+
+
+// const server = http.createServer(app);
+// server.listen(4000);
+
+
+app.listen(4000);
 
