@@ -107,16 +107,42 @@
 
 
 // <------LEARNING HOW TO HANDLE MULTIPLE ROUTES----->
+const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
+const path = require('path');
+
+const adminRoutes = require('./expRoutes/admin.js');
+const shopRoutes = require('./expRoutes/shop.js');
+
+
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use('/admin', adminRoutes);   //by this routesonly statrting with admin will got the admin routes
+app.use(shopRoutes);
+
+app.use((req, res, next) => {
+    res.status(404).send('<h1>error 404, page not found</h1>');
+})
+
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
+})
+
 
 //handling the differnet urls
-app.use('/add-product', (req, res, next) => {
-    res.send("hello  from product page");
-})
-app.use('/', (req, res, next) => {
-    res.send("hello from main page")
-})
+// app.use('/add-product', (req, res, next) => {
+//     console.log("this is running");
+//     res.send('<form action="/product" method = "POST"><input type="text" name="title"><button type="submit">add product</button></form>');
+// })
+// app.use('/product', (req, res, next) => {
+//     console.log(req.body);
+//     res.redirect('/');
+// })
+
+// app.use('/', (req, res, next) => {
+//     res.send("hello from main page")
+// })
 
 app.listen(4000);
 
