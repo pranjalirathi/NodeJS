@@ -117,13 +117,14 @@ const shopRoutes = require('./expRoutes/shop.js');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(path.join(__dirname,'public' )));
 
 app.use('/admin', adminRoutes);   //by this routesonly statrting with admin will got the admin routes
-app.use(shopRoutes);
+app.use( shopRoutes);
 
-app.use((req, res, next) => {
-    res.status(404).send('<h1>error 404, page not found</h1>');
-})
+// app.use((req, res, next) => {
+//     res.status(404).send('<h1>error 404, page not found</h1>');
+// })
 
 app.use((req, res, next) => {
     res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
