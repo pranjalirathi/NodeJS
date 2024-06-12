@@ -112,14 +112,18 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-const adminRoutes = require('./expRoutes/admin.js');
+app.set('view engine', 'pug');
+app.set('views', 'views');
+
+const adminData = require('./expRoutes/admin.js');
 const shopRoutes = require('./expRoutes/shop.js');
 
-
 app.use(bodyParser.urlencoded({extended: false}));
+
+//using the static files
 app.use(express.static(path.join(__dirname,'public' )));
 
-app.use('/admin', adminRoutes);   //by this routesonly statrting with admin will got the admin routes
+app.use('/admin', adminData.routes);   //by this routesonly statrting with admin will got the admin routes
 app.use( shopRoutes);
 
 // app.use((req, res, next) => {
